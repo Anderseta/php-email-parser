@@ -207,7 +207,7 @@ class PlancakeEmailParser {
         $boundaries = $matches[1];
         // sometimes boundaries are delimited by quotes - we want to remove them
         foreach($boundaries as $i => $v) {
-            $boundaries[$i] = str_replace(array("'", '"'), '', $v);
+            $boundaries[$i] = trim(str_replace(array("'", '"'), '', $v));
         }
         
         foreach ($this->rawBodyLines as $line) {
@@ -239,7 +239,7 @@ class PlancakeEmailParser {
                 
                 // if the delimited is AAAAA, the line will be --AAAAA  - that's why we use substr
                 if (is_array($boundaries)) {
-                    if (in_array(substr($line, 2), $boundaries)) {  // found the delimiter
+                    if (in_array(substr(trim($line), 2), $boundaries)) {  // found the delimiter
                         break;
                     }
                 }
